@@ -91,26 +91,54 @@ export class News extends Component {
     this.state = {
       articles: this.articles,
       loading: false,
+      page:1,
+      articleNumbers: 12
     };
   }
 
   async componentDidMount() {
     let url =
-      "https://newsapi.org/v2/top-headlines?country=us&apiKey=cf3df58058ec4e24aa220760c95d025a";
+      `https://newsapi.org/v2/top-headlines?country=in&apiKey=cf3df58058ec4e24aa220760c95d025a&page=1&pageSize=${this.state.articleNumbers}`;
     let data = await fetch(url);
     data = await data.json();
     this.setState({ articles: data.articles });
   }
+  handlePrev = async ()=>{
+    console.log("Previous")
+    let url =
+      `https://newsapi.org/v2/top-headlines?country=in&apiKey=cf3df58058ec4e24aa220760c95d025a&page=${this.state.page-1}&pageSize=${this.state.articleNumbers}`;
+    let data = await fetch(url);
+    data = await data.json();
+    console.log(url)
+    this.setState({
+        page: this.state.page - 1,
+        articles: data.articles,
+        totalResults: data.totalResults
+    });
+  }
+  handleNext = async ()=> {
+    let url =
+      `https://newsapi.org/v2/top-headlines?country=in&apiKey=cf3df58058ec4e24aa220760c95d025a&page=${this.state.page+1}&pageSize=${this.state.articleNumbers}`;
+    let data = await fetch(url);
+    data = await data.json();
+    console.log(url)
+    this.setState({
+        page: this.state.page + 1,
+        articles: data.articles,
+        totalResults: data.totalResults
+    });
+  }
   render() {
     return (
-      <div className="container">
+        <>
+      <div className="container my-5">
         <div className="row">
           {this.state.articles.map((element) => {
             return (
               <div className="col-md-4">
                 <NewsItems
-                  title={element.title?.slice(0, 40)}
-                  description={element.description?.slice(0, 100)}
+                  title={element.title}
+                  description={element.description}
                   imageUrl={element.urlToImage}
                   newsUrl={element.url}
                 />
@@ -119,6 +147,11 @@ export class News extends Component {
           })}
         </div>
       </div>
+      <div className="container d-flex justify-content-between">
+      <button disabled={this.state.page <= 1} type="button" className="btn btn-dark" onClick={this.handlePrev}>&larr; Previous</button>
+      <button disabled={this.state.page >= Math.ceil(this.state.totalResults/this.state.articleNumbers)} type="button" className="btn btn-dark" onClick={this.handleNext}>Next &rarr;</button>
+      </div>
+      </>
     );
   }
 }
