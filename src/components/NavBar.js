@@ -27,7 +27,7 @@ export default class NavBar extends Component {
         >
           <div className="container-fluid">
             <a className="navbar-brand" href="/">
-              Navbar
+              NewsJunkey
             </a>
             <button
               className="navbar-toggler"
