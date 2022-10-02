@@ -1,15 +1,189 @@
-import React, { Component } from 'react'
-import NavBar from './components/NavBar'
-import News from './components/News'
-
-export default class  extends Component {
-  name = "Rashad"
+import React, { Component } from "react";
+import NavBar from "./components/NavBar";
+import News from "./components/News";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+export default class extends Component {
+  constructor() {
+    super();
+    this.state = {
+      mode: "light",
+    };
+  }
+  toggleMode = () => {
+    if (this.state.mode === "light") {
+      this.setState({ mode: "dark" });
+      document.body.style.backgroundColor = "black";
+    } else {
+      this.setState({ mode: "light" });
+      document.body.style.backgroundColor = "white";
+    }
+  };
   render() {
     return (
-      <div>
-        <NavBar/>
-        <News/>
-      </div>
-    )
+      <Router>
+        <Routes>
+          <Route
+            exact
+            path="/business"
+            element={
+              <>
+                <NavBar
+                  mode={this.state.mode}
+                  toggleMode={this.toggleMode}
+                  active="business"
+                />
+                <News
+                  mode={this.state.mode}
+                  key="business"
+                  category="business"
+                  country="in"
+                  pageSize={12}
+                />
+              </>
+            }
+          />
+          <Route
+            exact
+            path="/entertainment"
+            element={
+              <>
+                <NavBar
+                  mode={this.state.mode}
+                  toggleMode={this.toggleMode}
+                  active="entertainment"
+                />
+                <News
+                  mode={this.state.mode}
+                  key="entertainment"
+                  category="entertainment"
+                  country="in"
+                  pageSize={12}
+                />
+              </>
+            }
+          />
+          <Route
+            exact
+            path="/"
+            element={
+              <>
+                <NavBar
+                  mode={this.state.mode}
+                  toggleMode={this.toggleMode}
+                  active="general"
+                />
+                <News
+                  mode={this.state.mode}
+                  key="general"
+                  category="general"
+                  country="in"
+                  pageSize={12}
+                />
+              </>
+            }
+          />
+          <Route
+            exact
+            path="/general"
+            element={
+              <>
+                <NavBar
+                  mode={this.state.mode}
+                  toggleMode={this.toggleMode}
+                  active="general"
+                />
+                <News
+                  mode={this.state.mode}
+                  key="general"
+                  category="general"
+                  country="in"
+                  pageSize={12}
+                />
+              </>
+            }
+          />
+          <Route
+            exact
+            path="/health"
+            element={
+              <>
+                <NavBar
+                  mode={this.state.mode}
+                  toggleMode={this.toggleMode}
+                  active="health"
+                />
+                <News
+                  mode={this.state.mode}
+                  key="health"
+                  category="health"
+                  country="in"
+                  pageSize={12}
+                />
+              </>
+            }
+          />
+          <Route
+            exact
+            path="/science"
+            element={
+              <>
+                <NavBar
+                  mode={this.state.mode}
+                  toggleMode={this.toggleMode}
+                  active="science"
+                />
+                <News
+                  mode={this.state.mode}
+                  key="science"
+                  category="science"
+                  country="in"
+                  pageSize={12}
+                />
+              </>
+            }
+          />
+          <Route
+            exact
+            path="/sports"
+            element={
+              <>
+                <NavBar
+                  mode={this.state.mode}
+                  toggleMode={this.toggleMode}
+                  active="sports"
+                />
+                <News
+                  mode={this.state.mode}
+                  key="sports"
+                  category="sports"
+                  country="in"
+                  pageSize={12}
+                />
+              </>
+            }
+          />
+          <Route
+            exact
+            path="/technology"
+            element={
+              <>
+                <NavBar
+                  mode={this.state.mode}
+                  toggleMode={this.toggleMode}
+                  active="technology"
+                />
+                <News
+                  mode={this.state.mode}
+                  key="technology"
+                  category="technology"
+                  country="in"
+                  pageSize={12}
+                />
+              </>
+            }
+          />
+        </Routes>
+      </Router>
+    );
   }
 }
